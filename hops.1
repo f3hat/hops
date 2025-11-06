@@ -1,0 +1,121 @@
+.TH hops 1 "November 2025" "v1.0.2" "hops Manual"
+
+.SH NAME
+hops \- inspect domain IPs, nameservers, hops, and reverse DNS
+
+.SH SYNOPSIS
+.B hops
+[\fIOPTION\fR] \fIDOMAIN\fR
+
+.SH DESCRIPTION
+\fBhops\fR is a minimalist network inspection tool written in portable Bash. It performs DNS resolution, reverse lookups, traceroute analysis, and ASN identification using public tools such as \fBdig\fR(1), \fBtraceroute\fR(8), and \fBwhois\fR(1). Output is colorized and formatted for readability in terminal environments.
+
+The tool is designed to be dependency-light, fast, and scriptable. It uses Team Cymru's whois service to enrich traceroute hops with ASN and organization data.
+
+.SH OPTIONS
+.TP
+\fB-d\fR \fIDOMAIN\fR
+Resolve and display both IPv4 and IPv6 addresses for the given domain.
+.TP
+\fB-d4\fR \fIDOMAIN\fR
+Resolve and display only the IPv4 address.
+.TP
+\fB-d6\fR \fIDOMAIN\fR
+Resolve and display only the IPv6 address.
+.TP
+\fB-ns\fR \fIDOMAIN\fR
+List authoritative nameservers for the domain, along with their IP addresses and ASN/org info.
+.TP
+\fB-a\fR \fIDOMAIN\fR
+Perform a traceroute to the domain and display each hop with ASN and organization info.
+.TP
+\fB-ptr\fR \fIDOMAIN\fR
+Resolve the domain to IPv4 and perform a reverse DNS (PTR) lookup.
+.TP
+\fB-v\fR
+Display version information and banner.
+.TP
+\fB-h\fR
+Display help message with usage instructions.
+
+.SH FUNCTIONALITY
+.PP
+The following operations are performed internally:
+.TP
+\fBDependency check\fR
+Ensures \fBdig\fR, \fBtraceroute\fR, and \fBwhois\fR are available before execution.
+.TP
+\fBDomain validation\fR
+Checks if the domain matches a valid pattern before proceeding.
+.TP
+\fBIPv4/IPv6 resolution\fR
+Uses \fBdig\fR with \fBA\fR and \fBAAAA\fR records to resolve addresses.
+.TP
+\fBNameserver listing\fR
+Queries NS records and resolves each nameserver to its IP and ASN/org.
+.TP
+\fBTraceroute hops\fR
+Uses \fBtraceroute -n\fR to list IPs, then queries Team Cymru for ASN/org.
+.TP
+\fBPTR lookup\fR
+Performs reverse DNS lookup using \fBdig -x\fR.
+.TP
+\fBBanner\fR
+Displays an ASCII banner with version and author info.
+
+.SH EXAMPLES
+.TP
+\fBhops example.com\fR
+Show all available information: IPs, nameservers, hops, and PTR.
+.TP
+\fBhops -d example.com\fR
+Show both IPv4 and IPv6 addresses.
+.TP
+\fBhops -d4 example.com\fR
+Show only the IPv4 address.
+.TP
+\fBhops -ns example.com\fR
+Show authoritative nameservers and their metadata.
+.TP
+\fBhops -a example.com\fR
+Show traceroute hops with ASN and organization.
+.TP
+\fBhops -ptr example.com\fR
+Show reverse DNS (PTR) record for the domain's IPv4.
+.TP
+\fBhops -v\fR
+Display version and banner.
+.TP
+\fBhops -h\fR
+Display help message.
+
+.SH EXIT STATUS
+.TP
+0
+Successful execution.
+.TP
+1
+Missing dependency or invalid domain.
+.TP
+2
+Timeout or resolution failure.
+
+.SH ENVIRONMENT
+No environment variables are required. Output is ANSI colorized; disable with \fB--no-color\fR in future versions.
+
+.SH FILES
+None. This script does not read or write any files.
+
+.SH AUTHOR
+Written by Richard "f3hat" Halbritter <halbritter@member.fsf.org>
+
+.SH LICENSE
+GNU General Public License v3 or later.  
+See: https://www.gnu.org/licenses/gpl-3.0.html
+
+.SH SEE ALSO
+dig(1), traceroute(8), whois(1), bash(1)
+
+.SH NOTES
+This tool is intended for educational and diagnostic use. It does not cache results. Use responsibly and respect rate limits of external services such as Team Cymru.
+
