@@ -1,71 +1,74 @@
 # hops
 
-**hops** é uma ferramenta simples de inspeção de rede escrita em Bash.
-Ela resolve endereços IPv4/IPv6, realiza consultas de rDNS (PTR), lista nameservers (NS) e traça saltos de rede com informações de ASN e organização via dig, traceroute, whois e Team Cymru.
+**hops** is a simple network inspection tool written in Bash.
 
-## Recursos
+<img width="720" alt="hops v1.0.2" src="https://github.com/user-attachments/assets/993da948-6cfb-4867-b6c9-38d07f0dc1b0" />
 
-- Resolução de IPv4 e IPv6
-- Consulta de rDNS (PTR)
-- Listagem de nameservers (NS) com IP e ASN
-- Traceroute com enriquecimento de ASN/organização
-- Saída colorida (True Color 24-bit) e legível em terminal
-- Exportação em JSON para integração com outros sistemas (e.g., jq)
-- Licenciado sob GPLv3+
+It resolves IPv4/IPv6 addresses, performs rDNS (PTR) lookups, lists nameservers (NS), and traces network hops with ASN and organization information via dig, traceroute, rdap, and Team Cymru's whois.
 
-## Instalação
+## Features
 
-### Instalação padrão
+- IPv4 and IPv6 resolution  
+- rDNS (PTR) lookup  
+- Nameserver (NS) listing with IP and ASN  
+- Traceroute enriched with ASN/Org  
+- Colored output (True Color 24-bit) readable in terminal  
+- JSON export for integration with other systems (e.g., <code>jq</code>)  
+- Licensed under GPLv3+
+
+## Installation
+
+### Standard installation
 ```
 sudo make install
 ```
 
-Instala:
-- Binário: `/usr/local/bin/hops`
+Installs:
+- Binary: `/usr/local/bin/hops`  
 - Manpage: `/usr/local/share/man/man1/hops.1`
 
-### Instalação personalizada
+### Custom installation
 ```
 make install PREFIX=/opt/hops
 ```
 
-### Para empacotamento
+### For packaging
 ```
 make install DESTDIR=./pkg
 ```
 
-## Dependências
+## Dependencies
 
-`hops` depende das seguintes ferramentas já presentes em sistemas Unix-like:
+`hops` depends on the following tools already present in Unix-like systems:
 
-- dig
-- traceroute
-- whois
-- awk, grep, timeout (utilitários básicos)
+- dig  
+- traceroute  
+- whois  
+- awk, grep, timeout (basic utilities)
 
-Verifique com:
+Check with:
 ```
 make check
 ```
 
-## Uso
+## Usage
 
 ```
-hops [opção] <domínio>
+hops [option] <domain>
 ```
 
-### Opções
-- -d       → Mostrar IPv4 e IPv6
-- -d4      → Mostrar apenas IPv4
-- -d6      → Mostrar apenas IPv6
-- -ns      → Mostrar nameservers
-- -a       → Mostrar hops (traceroute)
-- -ptr     → Mostrar DNS reverso (PTR)
-- -json    → Saída em JSON
-- -v       → Mostrar versão
-- -h       → Mostrar ajuda
+### Options
+- <code>-d</code>       → Show IPv4 and IPv6  
+- <code>-d4</code>      → Show IPv4 only  
+- <code>-d6</code>      → Show IPv6 only  
+- <code>-ns</code>      → Show nameservers  
+- <code>-a</code>       → Show hops (traceroute)  
+- <code>-ptr</code>     → Show reverse DNS (PTR)  
+- <code>-json</code>    → JSON output  
+- <code>-v</code>       → Show version  
+- <code>-h</code>       → Show help  
 
-### Exemplos
+### Examples
 ```
 hops example.com
 hops -d example.com
@@ -73,36 +76,35 @@ hops -ns example.com
 hops -json example.com
 ```
 
-## Empacotamento
+## Packaging
 
-Gerar tarball e checksum (SHA-256):
+Generate tarball and checksum (SHA-256):
 ```
 make dist
 ```
 
-Isso cria:
-- hops-vX.X.X.tar.gz
-- hops-vX.X.X.tar.gz.sha256
+This creates:
+- hops-vX.X.X.tar.gz  
+- hops-vX.X.X.tar.gz.sha256  
 
-Verificar integridade:
+Verify integrity:
 ```
 make verify
 ```
 
-## Documentação
+## Documentation
 
-Manpage disponível:
+Manpage available:
 ```
 man hops
 ```
 
-## Licença
+## License
 
-Distribuído sob a GNU General Public License v3 ou posterior (GPLv3+).
+Distributed under the GNU General Public License v3 or later (GPLv3+).
 
-Veja o arquivo COPYING ou acesse: https://www.gnu.org/licenses/gpl-3.0.html
+See the *COPYING* file or visit: https://www.gnu.org/licenses/gpl-3.0.html
 
-## Contribuições
+## Contributions
 
-Pull requests são bem-vindos!
-Para mudanças maiores, abra uma issue primeiro para discutir o que você gostaria de modificar.
+Pull requests are welcome! For larger changes, open an issue first to discuss what you would like to modify.
